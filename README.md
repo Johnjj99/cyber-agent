@@ -179,3 +179,209 @@ It is **completely deterministic** – no neural networks, no LLMs, no black box
 git clone https://github.com/Johnjj99/cyber-agent.git
 cd cyber-agent
 pip install -r requirements.txt
+```
+## ⚙️ Configuration
+
+targets.txt
+
+List of domains/IPs to audit – one per line:
+
+```
+example.com
+your-site.com
+192.168.1.1
+```
+
+- cyber_ontology.json
+
+Defines fields and their normalizers:
+
+```json
+{
+  "fields": {
+    "hsts": {
+      "type": "boolean",
+      "normalizers": ["enable_hsts"],
+      "description": "HTTP Strict Transport Security header"
+    }
+  }
+}
+```
+
+- validator_config.json
+
+Dynamic checks added by the agent:
+
+```json
+{
+  "checks": [
+    {
+      "field": "hsts",
+      "type": "required",
+      "message": "HSTS header is required"
+    }
+  ]
+}
+```
+
+cve_db.json
+
+- Local CVE database:
+
+```json
+{
+  "Apache/2.4.49": [
+    {
+      "id": "CVE-2021-41773",
+      "severity": "Critical",
+      "description": "Path traversal and RCE in Apache 2.4.49"
+    }
+  ]
+}
+```
+
+- data/wordlists/common_dirs.txt
+
+Wordlist for directory enumeration – add/remove entries as needed.
+
+---
+
+## 🚀 Usage
+
+Quick Start
+
+```bash
+python cyber_runner.py
+```
+
+- Adjust Interval
+
+Edit cyber_runner.py:
+
+```python
+agent = CyberAgent(population_size=20, generations=5, interval=30)  # 30 seconds
+```
+
+- Add New Target
+
+Edit targets.txt – the agent will pick it up in the next cycle.
+
+- View Results
+
+· Report: output/report.json
+· Learning Store: output/learning_store.json
+· Backups: backups/ (auto‑created before code modification)
+
+---
+
+## 🧠 How It Learns
+
+- Genetic Algorithm
+
+· Chromosome: (normalizers, meta) – a set of actions + hyperparameters.
+· Fitness: Number of checks passed (EXPECTED_CHECKS - len(errors)).
+· Selection: Tournament selection (picks parents based on fitness).
+· Crossover: Combines normalizer sets, averages meta parameters.
+· Mutation: Adds/removes/replaces normalizers, adjusts meta.
+· Elitism: Preserves the best chromosome.
+· Meta‑Evolution: Evolves population size, generations, mutation rate.
+
+- Learning Store
+
+· Records every failure (error type, field, message, traceback, operation).
+· Seeds the initial population with chromosomes derived from past failures.
+· Used by advanced repair to detect patterns and generate patches.
+
+- Self‑Healing
+
+· Standard Repair: Parses traceback, wraps in try/except, adds .get().
+· Advanced Repair: Analyses repeated failures, generates targeted patches.
+· Trigger: Fitness stagnation for 3 consecutive cycles.
+
+---
+
+## 📊 Sample Report
+
+```json
+{
+  "timestamp": "2026-08-27T01:52:56Z",
+  "targets": ["example.com"],
+  "fitness": 0,
+  "total_vulnerabilities": 48,
+  "vulnerabilities": [
+    {
+      "field": "csp",
+      "type": "MISSING_HEADER",
+      "description": "CSP header missing",
+      "severity": "Medium"
+    },
+    {
+      "field": "dir_login",
+      "type": "DIRECTORY_EXPOSED",
+      "description": "Directory 'login' exposed (status 200)",
+      "severity": "High"
+    }
+  ]
+}
+```
+
+---
+
+## 🔧 Extending the System
+
+- Add a New Scanner
+
+1. Create a new file in scanners/ (e.g., scanners/network/smb.py).
+2. Write a scan(host) function that returns a list of error dicts.
+3. Import and call it in cyber_validator.py inside scan_target.
+
+- Add a New Normalizer
+
+1. Add the field to cyber_ontology.json.
+2. Add the operation to cyber_rules.py in create_normalizer_from_suggestion.
+3. Add a mapping in suggest_improvements (optional).
+
+- Add a New CVE
+
+Edit cve_db.json – add the product version and CVE details.
+
+---
+
+## 🛡️ Disclaimer
+
+This tool is for defensive security and authorised testing only.
+Do not use it against systems you do not own or have explicit permission to test.
+The author is not responsible for any misuse or damage caused by this tool.
+
+---
+
+## 📄 License
+
+This project is licensed under the GNU Affero General Public License v3.0 – see the LICENSE file for details.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Submit a pull request with a clear description of your changes.
+
+- Areas for Contribution
+
+· New scanners (e.g., SSH, SMTP, SNMP).
+· More wordlists for directory enumeration.
+· Enhanced fuzzing payloads.
+· Additional CVEs in the database.
+· Performance improvements.
+· Web dashboard.
+
+## 🙏 Acknowledgements
+
+· Built with Python, requests, dnspython, beautifulsoup4.
+· Inspired by evolutionary algorithms and autonomous security systems.
+
+---
+
