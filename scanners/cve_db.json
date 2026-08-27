@@ -1,0 +1,58 @@
+{
+  "Apache/2.4.49": [
+    {
+      "id": "CVE-2021-41773",
+      "severity": "Critical",
+      "description": "Path traversal and RCE in Apache 2.4.49"
+    }
+  ],
+  "Apache/2.4.50": [
+    {
+      "id": "CVE-2021-42013",
+      "severity": "Critical",
+      "description": "RCE in Apache 2.4.50"
+    }
+  ],
+  "nginx/1.18.0": [
+    {
+      "id": "CVE-2021-23017",
+      "severity": "Medium",
+      "description": "Denial of service in nginx 1.18.0"
+    }
+  ],
+  "OpenSSH/8.2p1": [
+    {
+      "id": "CVE-2021-36368",
+      "severity": "Medium",
+      "description": "Privilege escalation in OpenSSH 8.2p1"
+    }
+  ],
+  "GoAnywhere MFT/6.0.0": [
+    {
+      "id": "CVE-2023-48788",
+      "severity": "Critical",
+      "description": "Remote code execution in Fortra GoAnywhere MFT 6.0.0"
+    }
+  ],
+  "GoAnywhere MFT/6.0.1": [
+    {
+      "id": "CVE-2025-10035",
+      "severity": "High",
+      "description": "Remote code execution in Fortra GoAnywhere MFT 6.0.1"
+    }
+  ],
+  "ScreenConnect/23.9.8": [
+    {
+      "id": "CVE-2024-1709",
+      "severity": "Critical",
+      "description": "Authentication bypass and RCE in ConnectWise ScreenConnect 23.9.8"
+    }
+  ],
+  "BeyondTrust/23.1": [
+    {
+      "id": "CVE-2026-1731",
+      "severity": "Critical",
+      "description": "Privilege escalation in BeyondTrust 23.1"
+    }
+  ]
+}
