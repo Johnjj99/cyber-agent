@@ -192,10 +192,10 @@ your-site.com
 192.168.1.1
 ```
 
-- cyber_ontology.json
+## Cyber_ontology.json
 
 Defines fields and their normalizers:
-
+cve_db.json 
 ```json
 {
   "fields": {
@@ -208,7 +208,7 @@ Defines fields and their normalizers:
 }
 ```
 
-- validator_config.json
+## Validator_config.json
 
 Dynamic checks added by the agent:
 
@@ -224,9 +224,8 @@ Dynamic checks added by the agent:
 }
 ```
 
-cve_db.json
 
-- Local CVE database:
+## Local CVE database:
 
 ```json
 {
@@ -240,7 +239,7 @@ cve_db.json
 }
 ```
 
-- data/wordlists/common_dirs.txt
+data/wordlists/common_dirs.txt
 
 Wordlist for directory enumeration – add/remove entries as needed.
 
@@ -254,7 +253,7 @@ Quick Start
 python cyber_runner.py
 ```
 
-- Adjust Interval
+Adjust Interval
 
 Edit cyber_runner.py:
 
@@ -262,41 +261,41 @@ Edit cyber_runner.py:
 agent = CyberAgent(population_size=20, generations=5, interval=30)  # 30 seconds
 ```
 
-- Add New Target
+Add New Target
 
 Edit targets.txt – the agent will pick it up in the next cycle.
 
-- View Results
+View Results
 
-· Report: output/report.json
-· Learning Store: output/learning_store.json
-· Backups: backups/ (auto‑created before code modification)
+- Report: output/report.json
+- Learning Store: output/learning_store.json
+- Backups: backups/ (auto‑created before code modification)
 
 ---
 
 ## 🧠 How It Learns
 
-- Genetic Algorithm
+Genetic Algorithm
 
-· Chromosome: (normalizers, meta) – a set of actions + hyperparameters.
-· Fitness: Number of checks passed (EXPECTED_CHECKS - len(errors)).
-· Selection: Tournament selection (picks parents based on fitness).
-· Crossover: Combines normalizer sets, averages meta parameters.
-· Mutation: Adds/removes/replaces normalizers, adjusts meta.
-· Elitism: Preserves the best chromosome.
-· Meta‑Evolution: Evolves population size, generations, mutation rate.
+- Chromosome: (normalizers, meta) – a set of actions + hyperparameters.
+- Fitness: Number of checks passed (EXPECTED_CHECKS - len(errors)).
+- Selection: Tournament selection (picks parents based on fitness).
+- Crossover: Combines normalizer sets, averages meta parameters.
+- Mutation: Adds/removes/replaces normalizers, adjusts meta.
+- Elitism: Preserves the best chromosome.
+- Meta‑Evolution: Evolves population size, generations, mutation rate.
 
-- Learning Store
+Learning Store
 
-· Records every failure (error type, field, message, traceback, operation).
-· Seeds the initial population with chromosomes derived from past failures.
-· Used by advanced repair to detect patterns and generate patches.
+- Records every failure (error type, field, message, traceback, operation).
+- Seeds the initial population with chromosomes derived from past failures.
+- Used by advanced repair to detect patterns and generate patches.
 
-- Self‑Healing
+Self‑Healing
 
-· Standard Repair: Parses traceback, wraps in try/except, adds .get().
-· Advanced Repair: Analyses repeated failures, generates targeted patches.
-· Trigger: Fitness stagnation for 3 consecutive cycles.
+- Standard Repair: Parses traceback, wraps in try/except, adds .get().
+- Advanced Repair: Analyses repeated failures, generates targeted patches.
+- Trigger: Fitness stagnation for 3 consecutive cycles.
 
 ---
 
@@ -329,19 +328,19 @@ Edit targets.txt – the agent will pick it up in the next cycle.
 
 ## 🔧 Extending the System
 
-- Add a New Scanner
+Add a New Scanner
 
 1. Create a new file in scanners/ (e.g., scanners/network/smb.py).
 2. Write a scan(host) function that returns a list of error dicts.
 3. Import and call it in cyber_validator.py inside scan_target.
 
-- Add a New Normalizer
+Add a New Normalizer
 
 1. Add the field to cyber_ontology.json.
 2. Add the operation to cyber_rules.py in create_normalizer_from_suggestion.
 3. Add a mapping in suggest_improvements (optional).
 
-- Add a New CVE
+Add a New CVE
 
 Edit cve_db.json – add the product version and CVE details.
 
@@ -369,19 +368,19 @@ Contributions are welcome! Please:
 2. Create a feature branch.
 3. Submit a pull request with a clear description of your changes.
 
-- Areas for Contribution
+Areas for Contribution
 
-· New scanners (e.g., SSH, SMTP, SNMP).
-· More wordlists for directory enumeration.
-· Enhanced fuzzing payloads.
-· Additional CVEs in the database.
-· Performance improvements.
-· Web dashboard.
+- New scanners (e.g., SSH, SMTP, SNMP).
+- More wordlists for directory enumeration.
+- Enhanced fuzzing payloads.
+- Additional CVEs in the database.
+- Performance improvements.
+- Web dashboard.
 
 ## 🙏 Acknowledgements
 
-· Built with Python, requests, dnspython, beautifulsoup4.
-· Inspired by evolutionary algorithms and autonomous security systems.
+- Built with Python, requests, dnspython, beautifulsoup4.
+- Inspired by evolutionary algorithms and autonomous security systems.
 
 ---
 
