@@ -7,6 +7,18 @@
 [![Security](https://img.shields.io/badge/security-auditing-red.svg)](https://github.com/yourname/cyber-agent)
 
 ---
+## ⚠️ Important – Fixes Are Simulated
+
+**Cyber-Agent is a detection and recommendation engine – not an automatic patching tool.**
+
+- The system **simulates** all fixes in a local state (dictionary).
+- It **does not** modify any real server, firewall, DNS record, or API.
+- To apply real patches, you must:
+  - Have explicit permission to modify the target.
+  - Provide credentials (SSH keys, API tokens, etc.).
+  - Replace the simulated normalizers with real actions (e.g., `paramiko`, `boto3`, `requests` calls).
+
+The author is **not responsible** for any misuse or damage caused by this tool.
 
 ## 🌟 Overview
 
