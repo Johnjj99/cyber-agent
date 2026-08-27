@@ -165,3 +165,17 @@ It is **completely deterministic** – no neural networks, no LLMs, no black box
 │  - Supports advanced pattern‑based repair                 │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## 📦 Installation
+
+### Requirements
+- Python 3.8+
+- Termux, Linux, macOS, or Windows (with WSL)
+
+### Clone & Install
+```bash
+git clone https://github.com/Johnjj99/cyber-agent.git
+cd cyber-agent
+pip install -r requirements.txt
