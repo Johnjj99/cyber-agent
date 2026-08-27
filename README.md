@@ -1,4 +1,4 @@
-# 🧬 Cyber-Agent – Self‑Evolving Security Auditing System
+# Cyber-Agent – Self‑Evolving Security Auditing System
 
 **A deterministic, self‑improving, continuous cybersecurity auditing agent that detects vulnerabilities across web, network, DNS, cloud, APIs, and VPNs – without root, credentials, or machine learning.**
 
@@ -118,6 +118,7 @@ It is **completely deterministic** – no neural networks, no LLMs, no black box
 ---
 
 ## 🏗️ Architecture
+```
 ┌─────────────────────────────────────────────────────────────┐
 │                     Cyber-Runner.py                         │
 │               (Continuous Evolution Loop)                   │
@@ -163,3 +164,4 @@ It is **completely deterministic** – no neural networks, no LLMs, no black box
 │  - Seeds future populations                               │
 │  - Supports advanced pattern‑based repair                 │
 └─────────────────────────────────────────────────────────────┘
+```
