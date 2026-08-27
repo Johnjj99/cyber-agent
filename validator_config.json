@@ -1,0 +1,14 @@
+{
+  "checks": [
+    {
+      "field": "hsts",
+      "type": "required",
+      "message": "HSTS header is required"
+    },
+    {
+      "field": "csp",
+      "type": "required",
+      "message": "CSP header is recommended"
+    }
+  ]
+}

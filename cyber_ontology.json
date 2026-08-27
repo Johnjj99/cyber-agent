@@ -1,0 +1,99 @@
+{
+  "fields": {
+    "hsts": {
+      "type": "boolean",
+      "normalizers": ["enable_hsts"],
+      "description": "HTTP Strict Transport Security header"
+    },
+    "csp": {
+      "type": "boolean",
+      "normalizers": ["add_csp"],
+      "description": "Content Security Policy header"
+    },
+    "sqli": {
+      "type": "string",
+      "normalizers": ["mitigate_sqli"],
+      "description": "SQL injection vulnerability"
+    },
+    "spf": {
+      "type": "string",
+      "normalizers": ["add_spf", "add_spf_softfail"],
+      "description": "SPF record presence and softfail flag"
+    },
+    "ssl": {
+      "type": "string",
+      "normalizers": ["renew_cert"],
+      "description": "SSL certificate validity"
+    },
+    "dir": {
+      "type": "string",
+      "normalizers": ["block_directory"],
+      "description": "Exposed directory"
+    },
+    "rdp_port": {
+      "type": "string",
+      "normalizers": ["block_rdp_port"],
+      "description": "RDP port (3389) open"
+    },
+    "rdp_nla": {
+      "type": "string",
+      "normalizers": ["enable_nla"],
+      "description": "RDP NLA missing"
+    },
+    "xss": {
+      "type": "string",
+      "normalizers": ["fix_xss"],
+      "description": "XSS vulnerability"
+    },
+    "s3": {
+      "type": "string",
+      "normalizers": ["make_s3_private"],
+      "description": "Public S3 bucket"
+    },
+    "api": {
+      "type": "string",
+      "normalizers": ["fix_api_config"],
+      "description": "API misconfiguration"
+    },
+    "cve": {
+      "type": "string",
+      "normalizers": ["patch_cve"],
+      "description": "Known CVE vulnerability"
+    },
+    "fuzzing_anomaly": {
+      "type": "string",
+      "normalizers": ["report_anomaly"],
+      "description": "Potential unknown vulnerability detected by fuzzing"
+    },
+    "vpn_openvpn": {
+      "type": "string",
+      "normalizers": [],
+      "description": "OpenVPN service detected"
+    },
+    "vpn_ipsec": {
+      "type": "string",
+      "normalizers": [],
+      "description": "IPsec service detected"
+    },
+    "vpn_wireguard": {
+      "type": "string",
+      "normalizers": [],
+      "description": "WireGuard service detected"
+    },
+    "vpn_ssl": {
+      "type": "string",
+      "normalizers": [],
+      "description": "SSL VPN endpoint detected"
+    },
+    "api_rate_limit": {
+      "type": "string",
+      "normalizers": [],
+      "description": "Rate limiting misconfiguration"
+    },
+    "jwt_weakness": {
+      "type": "string",
+      "normalizers": [],
+      "description": "JWT algorithm or token weakness"
+    }
+  }
+}
