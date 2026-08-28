@@ -90,6 +90,66 @@
       "normalizers": [],
       "description": "Rate limiting misconfiguration"
     },
+    "wp_admin_exposed": {
+  "type": "string",
+  "normalizers": [],
+  "description": "WordPress admin panel exposed"
+},
+"wp_debug_enabled": {
+  "type": "string",
+  "normalizers": [],
+  "description": "WordPress debug mode enabled"
+},
+"wp_plugin": {
+  "type": "string",
+  "normalizers": [],
+  "description": "WordPress plugin detected"
+},
+"wp_theme": {
+  "type": "string",
+  "normalizers": [],
+  "description": "WordPress theme detected"
+},
+"craft_admin_exposed": {
+  "type": "string",
+  "normalizers": [],
+  "description": "Craft CMS admin panel exposed"
+},
+"craft_debug_enabled": {
+  "type": "string",
+  "normalizers": [],
+  "description": "Craft CMS debug mode enabled"
+},
+"craft_config_exposed": {
+  "type": "string",
+  "normalizers": [],
+  "description": "Craft CMS config file exposed"
+},
+"craft_plugin": {
+  "type": "string",
+  "normalizers": [],
+  "description": "Craft CMS plugin detected"
+},
+"ghost_admin_exposed": {
+  "type": "string",
+  "normalizers": [],
+  "description": "Ghost CMS admin panel exposed"
+},
+"ghost_debug_enabled": {
+  "type": "string",
+  "normalizers": [],
+  "description": "Ghost CMS debug mode enabled"
+},
+"ghost_config_exposed": {
+  "type": "string",
+  "normalizers": [],
+  "description": "Ghost CMS config file exposed"
+},
+  "cms_fuzzing_anomaly": {
+  "type": "string",
+  "normalizers": ["report_anomaly"],
+  "description": "Potential vulnerability detected by CMS‑specific fuzzing"
+    },
     "jwt_weakness": {
       "type": "string",
       "normalizers": [],
