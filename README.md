@@ -196,7 +196,7 @@ pip install -r requirements.txt
 
 targets.txt
 
-List of domains/IPs to audit – one per line:
+**List of domains/IPs to audit – one per line:**
 
 ```
 example.com
@@ -206,7 +206,7 @@ your-site.com
 
 ## Cyber_ontology.json
 
-Defines fields and their normalizers:
+**Defines fields and their normalizers**:
 cve_db.json 
 ```json
 {
@@ -222,7 +222,7 @@ cve_db.json
 
 ## Validator_config.json
 
-Dynamic checks added by the agent:
+**Dynamic checks added by the agent**:
 
 ```json
 {
@@ -259,25 +259,25 @@ Wordlist for directory enumeration – add/remove entries as needed.
 
 ## 🚀 Usage
 
-Quick Start
+*Quick Start*
 
 ```bash
 python cyber_runner.py
 ```
 
-Adjust Interval
+**Adjust Interval**
 
-Edit cyber_runner.py:
+*Edit cyber_runner.py:*
 
 ```python
 agent = CyberAgent(population_size=20, generations=5, interval=30)  # 30 seconds
 ```
 
-Add New Target
+**Add New Target**
 
 Edit targets.txt – the agent will pick it up in the next cycle.
 
-View Results
+**View Results**
 
 - Report: output/report.json
 - Learning Store: output/learning_store.json
@@ -287,7 +287,7 @@ View Results
 
 ## 🧠 How It Learns
 
-Genetic Algorithm
+**Genetic Algorithm**
 
 - Chromosome: (normalizers, meta) – a set of actions + hyperparameters.
 - Fitness: Number of checks passed (EXPECTED_CHECKS - len(errors)).
@@ -297,13 +297,13 @@ Genetic Algorithm
 - Elitism: Preserves the best chromosome.
 - Meta‑Evolution: Evolves population size, generations, mutation rate.
 
-Learning Store
+**Learning Store**
 
 - Records every failure (error type, field, message, traceback, operation).
 - Seeds the initial population with chromosomes derived from past failures.
 - Used by advanced repair to detect patterns and generate patches.
 
-Self‑Healing
+**Self‑Healing**
 
 - Standard Repair: Parses traceback, wraps in try/except, adds .get().
 - Advanced Repair: Analyses repeated failures, generates targeted patches.
@@ -340,21 +340,95 @@ Self‑Healing
 
 ## 🔧 Extending the System
 
-Add a New Scanner
+**Add a New Scanner**
 
 1. Create a new file in scanners/ (e.g., scanners/network/smb.py).
 2. Write a scan(host) function that returns a list of error dicts.
 3. Import and call it in cyber_validator.py inside scan_target.
 
-Add a New Normalizer
+**Add a New Normalizer**
 
 1. Add the field to cyber_ontology.json.
 2. Add the operation to cyber_rules.py in create_normalizer_from_suggestion.
 3. Add a mapping in suggest_improvements (optional).
 
-Add a New CVE
+**Add a New CVE**
 
 Edit cve_db.json – add the product version and CVE details.
+
+---
+
+### Upgrade: Deep CMS Audits (WordPress, Craft CMS, Ghost CMS)
+
+We've added comprehensive Content Management System (CMS) auditing capabilities to Cyber-Agent. The system can now detect vulnerabilities and misconfigurations in three of the most popular CMS platforms – WordPress, Craft CMS, and Ghost CMS – using both static analysis and dynamic fuzzing.
+
+---
+
+## 📋 What's Included
+
+**1. WordPress Audits** (scanners/cms/wordpress.py)
+
+- Version detection (from readme.html, meta generator, wp-includes/version.php)
+- Admin panel exposure (/wp-admin)
+- Debug mode detection (WP_DEBUG enabled)
+- Plugin enumeration (detects common plugins like WooCommerce, Elementor, Yoast, etc.)
+- Theme detection
+- Known CVE lookup for WordPress core
+
+**2. Craft CMS Audits** (scanners/cms/craft.py)
+
+- Version detection
+- Admin panel exposure (/admin, /cp, /backend)
+- Debug mode detection
+- Configuration file exposure (.env, config/general.php)
+- Plugin detection
+
+**3. Ghost CMS Audits** (scanners/cms/ghost.py)
+
+- Version detection
+- Admin panel exposure (/ghost)
+- Debug mode detection
+- Configuration file exposure (config.js)
+
+---
+
+## 🔍 CMS‑Specific Fuzzing
+
+We've added targeted endpoint fuzzing for each CMS (scanners/cms/fuzzer.py). Unlike the generic fuzzer, this module tests known vulnerable endpoints:
+
+**CMS Tested Endpoints**
+WordPress /wp-admin/admin-ajax.php, /wp-json/wp/v2/posts, /xmlrpc.php, /wp-json/jetpack/v4/
+Craft /admin/actions, /api/v1/entries, /index.php?p=admin/actions
+Ghost /ghost/api/v3/admin/posts, /ghost/api/v3/admin/settings
+
+Payloads used: SQL injection, XSS, path traversal, SSTI, command injection, and more – with error‑based detection.
+
+---
+
+## 🧠 How It Works
+
+1. CMS Detection – The system first identifies which CMS (if any) is running on the target.
+2. Static Audits – Runs version detection, checks for admin exposure, debug mode, config exposure, and enumerates plugins/themes.
+3. Dynamic Fuzzing – For each detected CMS, it runs endpoint‑specific fuzzing with error‑based anomaly detection.
+4. Reporting – All findings are included in the standard output/report.json with severity mapping.
+
+---
+
+## 📊 New Error Types & Severity
+
+Error Type Severity
+*ADMIN_EXPOSED* High
+*CONFIG_EXPOSED* High
+*CMS_FUZZING_ANOMALY* High
+*PLUGIN_DETECTED* Medium
+*THEME_DETECTED* Medium
+*DEBUG_MODE* Medium
+
+---
+
+## 🔧 Configuration
+
+No additional configuration is required – all CMS audits run automatically when a target is scanned. To enable CMS‑specific fuzzing, ensure the target is accessible and the CMS is detectable.
 
 ---
 
@@ -380,7 +454,7 @@ Contributions are welcome! Please:
 2. Create a feature branch.
 3. Submit a pull request with a clear description of your changes.
 
-Areas for Contribution
+**Areas for Contribution**
 
 - New scanners (e.g., SSH, SMTP, SNMP).
 - More wordlists for directory enumeration.
