@@ -19,6 +19,11 @@ from scanners.fuzzer import scan as fuzz_scan
 from reporting.generator import generate_report, save_report
 from scanners.api.advanced import scan as api_advanced_scan
 from scanners.network.vpn import scan as vpn_scan
+from scanners.cms.wordpress import scan as wp_scan
+from scanners.cms.craft import scan as craft_scan
+from scanners.cms.ghost import scan as ghost_scan
+from scanners.cms.detector import detect_cms
+from scanners.cms.fuzzer import scan as cms_fuzz_scan
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +86,15 @@ def scan_target(target):
     errors.extend(api_advanced_scan(target))
     # VPN
     errors.extend(vpn_scan(target))
+    # CMS static scans
+    errors.extend(wp_scan(target))
+    errors.extend(craft_scan(target))
+    errors.extend(ghost_scan(target))
+
+    # ---- CMS detection & fuzzing ----
+    cms_type = detect_cms(target)
+    if cms_type:
+        errors.extend(cms_fuzz_scan(target, cms_type))
 
     # ---- Fetch main page for CVE scanning ----
     try:
